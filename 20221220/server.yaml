@@ -1,0 +1,12 @@
+#cloud-config
+write_files: 
+  - path: /run/myserver/index.html
+    owner: root:root
+    permissions: "0644"
+    content: "<h1>cloud init was here</h1>"
+runcmd:
+  - apt-get update
+  - sudo apt-get install nginx -y
+  - sudo mv /run/myserver/index.html /var/www/html/index.html
+  - sudo systemctl enable --no-block nginx 
+  - systemctl start --no-block nginx 
